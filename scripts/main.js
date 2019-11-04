@@ -1,69 +1,78 @@
 // landing page
 
-//start section
+
 
 var landingPage = document.querySelector('.landing-page-container');
 var adminPanel = document.querySelector('.admin-panel-container');
 var quizPanel = document.querySelector('.quiz-container');
 
 
-let startSectionModule = ( () => {
-  const firstNameInput, lastNameInput, adminFirstName, adminLastName, startBtn;
-  let userFirstName, userLastName, newStudent, studentList, studentIdNr;
+/* ------- START SECTION ----------*/
+  let  userFirstName, userLastName, newStudent;
 
-// sets amin's
-  adminFirstName = Bill;
-  adminLastName = Marshal;
-  studentIdNr = 0;
-  studentList = [];
-  firstNameInput = document.getElementById('firstname');
-  lastNameInput = document.getElementById('lastname')
-  startBtn = document.getElementById('start-btn');
-  startBtn.addEventListener('click', openPanel);
+// sets the admin
+  const adminFirstName = 'Bill';
+  const adminLastName = 'Marshal';
+  let studentIdNr = 0;
+  let studentList = [];
+  const firstNameInput = document.getElementById('firstname');
+  const lastNameInput = document.getElementById('lastname')
+  const startBtn = document.getElementById('start-btn');
 
   //checks if the input boxes are filled
-  const validateNameInput = (firstNameInput, lastNameInput) =>
+  let validateNameInput = (firstNameInput, lastNameInput) => {
+    console.log('validating input', firstNameInput, lastNameInput);//for debug
     if (firstNameInput.value & lastNameInput.value) {
       userFirstName = firstNameInput.value;
       userLastName = lastNameInput.value;
-      return (userFirstName, userLastName);
-    } else {
-      alert ('Please fill in all the boxes');
-    };
+      checkPerson(userFirstName, userLastName);
+    }else {
+      alert ('Please fill in all the input boxes');
+    }
+  }
 
   //checks if the user is admin or student and displays the proper panel
-  const checkPerson = () => {
-    if (userFirstName === adminFirstName & userLastName === adminLastName) {
+  let checkPerson = (userFirstName, userLastName) => {
+    console.log('checking student', userFirstName, userLastName); //for debug
+    if(userFirstName === adminFirstName & userLastName === adminLastName) {
       //displays admin panel
       adminPanel.style.display = 'block';
       landingPage.style.display = 'none';
-    } else {
-      studentList.length > 0 ? checkStudent() :
-      //displays quiz panel
-      quizPanel.style.display = 'block';
-      landingPage.style.display = 'none';
+    } else if (studentList.length > 0) {
+      checkStudent(userFirstName, userLastName);
+    }else {
+      createStudent(userFirstName, userLastName);
+      displayQuizPanel();
+    };
+  }
 
+  //checks if a student with the same name has already taken the quiz
+  let checkStudent = (userFirstName, userLastName) => {
+    console.log('checking student');
+    studentList.map((student, index) => {
+      (student[1] === userFirstName & student[2] === userLastName)
+        ? alert (`A student named ${userFirstName} ${userLastName} already took the test. Please register using your Midle Name or contact the quiz administrator`)
+        : (createStudent(userFirstName, userLastName),
+           displayQuizPanel());
+    })
+  }
 
+  /*checks if a questionnaire exists
+  let checkQuestionnare = () => {
 
-    }
+  }*/
 
-    //checks if the student has already taken the quiz
-    //if yes - retrievs it's data, if no-creates the new student
+  //creates the new student entry
+  let createStudent = (userFirstName, userLastName) => {
+    console.log('creating student');//for debug
+    new Student (userFirstName, userLastName, studentIdNr);
+    studentIdNr ++;
+  }
 
-    //creates the student's Profile
-
-    const checkStudent = () => {
-      for (const student of studentList) {
-        if student[1] === userFirstName & student[2] === userLastName) {
-          const reply = confirm(`A student named ${userFirstName} ${userLastName} already took the test. Do you want to repeat it?`);
-          reply != true ? getStudentData();
-        } else {
-          // creates the new student
-        }
-      }
-    }
-
-    //const getStudentData - retriev student data from localStorage
+  //displays the quiz panel
+  const displayQuizPanel = () => {
+    quizPanel.style.display = 'block';
+    landingPage.style.display = 'none';
   }
 
   class Student {
@@ -75,39 +84,28 @@ let startSectionModule = ( () => {
       this.studentProfile = [studentIdNr, studentFirstName, studentLastName, studentScore];
     }
 
-    addStudent () => {
+    addStudent = () => {
       //adds the student to studentList
       studentList.push(this.studentProfile);
       //saves the student to the Local Storage
       window.localStorage.setItem( this.studentIdNr, JSON.stringify('studentProfile'));
     }
 
-    updateScore (newScore) => {
-      //updates student's score
+    //updates student's score
+    updateScore = (newScore) => {
       this.studentScore= newScore;
-      //updates student's score on Local storage
       window.localStorage.setItem(this.studentIdNr, JSON.strignify('studentProfile'));
     }
 
-    deleteStudent () => {
-      //removes the student from studentList
-      studentList.push(this.studentProfile);
-      //removes the student from the Local Storage
+    //removes the student from studentList and Local Storage
+    deleteStudent = () => {
+      studentList.map((student, index) => {
+        student === this.studentProfile ? studentList.splice(index, 1) : console.log ("couldn't find student");
+      });
       window.localStorage.removeItem(this.studentIdNr);
     }
+  };
 
-  }
+  startBtn.addEventListener('click', validateNameInput(firstNameInput, lastNameInput));
 
-
-  //if the user is a new student adds him to the students list and to local storage
-
-
-
-  //checks if a questionnaire exists
-
-  //makes the proper panel vizible
-  const openPanel = (firstName, lastName) => {
-
-
-  }
-})();
+/* ------------ ADMIN PANEL ---------------- */
