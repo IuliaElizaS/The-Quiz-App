@@ -16,6 +16,7 @@ section.landing-page-container {
     height: 100vh;
     width: 100%;
     overflow: hidden;
+    display: none;
 }
 
 div.landing-page-wrapper {
@@ -94,7 +95,7 @@ div.landing-inputs-wrapper input:focus {
      border-bottom: 2px solid #fff;
 }
 
-#start-quiz-btn {
+#start-btn {
     font-family: 'Cabin', sans-serif;
     width: 300px;
     padding: 13px 10px;
@@ -111,7 +112,7 @@ div.landing-inputs-wrapper input:focus {
     transition: all .3s;
 }
 
-#start-quiz-btn:hover {
+#start-btn:hover {
     border: 2px solid #fff;
     color: #fff;
     transform: translateX(-1px);
@@ -126,7 +127,7 @@ div.landing-inputs-wrapper input:focus {
 **************************************/
 
 section.admin-panel-container {
-    display: none;
+    display: block;
     height: 90vh;
     width: 95%;
     margin: 5vh 2.5%;

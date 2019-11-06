@@ -21,7 +21,7 @@
         <div class="landing-inputs-wrapper">
           <input type="text" id="firstname" class="fullname" placeholder="Enter Your Firstname">
           <input type="text" id="lastname" class="fullname" placeholder="Enter Your Lastname">
-          <button id="start-btn">Start Quiz</button>
+          <button id="start-btn">Start</button>
         </div>
       </div>
 
@@ -35,33 +35,28 @@
 **************************************-->
   <section class="admin-panel-container">
 
-       <div class='admin-panel-wrapper'>
+      <div class='admin-panel-wrapper'>
         <div class="header">
          <h2>Add Questions</h2>
          <button id="admin-logout-btn">Logout</button>
         </div>
 
-         <div class="forms-wrapper">
-          <button id="question-update-btn">Update</button>
-          <button id="question-delete-btn">Delete</button>
-
+        <div class="forms-wrapper">
           <textarea id="new-question-text" cols="" rows="" placeholder="New Question"></textarea>
-          <div class="admin-options-container">
-              <div class="admin-option-wrapper">
-                  <input type="radio" class="admin-option-0" name="answer" value="0">
-                  <input type="text" class="admin-option admin-option-0" value="">
-              </div>
-              <div class="admin-option-wrapper">
-                  <input type="radio" class="admin-option-1" name="answer" value="1">
-                  <input type="text" class="admin-option admin-option-1" value="">
-              </div>
+          <div id="options-container" class="admin-options-container">
+            <div class="admin-option-wrapper">
+              <input type="radio" class="admin-option-0" name="answer" value="0">
+              <input type="text" class="admin-option admin-option-0" placeholder="Answer option" value="">
+            </div>
           </div>
+					<button id="new-answer-btn">Add new answer</button>
+        </div>
 
-          <button id="question-insert-btn">Insert</button>
-         </div>
-
-        <button id="questions-clear-btn">Clear List</button>
-       </div>
+				<button id="question-insert-btn">Insert question</button>
+				<button id="question-update-btn">Update</button>
+				<button id="question-delete-btn">Delete</button>
+        <button id="questions-clear-btn">Clear question</button>
+      </div>
 
        <div class="results-list-container">
          <div class="clear">
